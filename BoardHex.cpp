@@ -14,7 +14,9 @@ void BoardHex::init(int row ,int col){
 		}
 	}
 }
-void BoardHex::onClickHex(HexIndex&){}
+void BoardHex::onClickHex(HexIndex& index){
+	index;
+}
 void BoardHex::getHexes(QVector<QPolygonF>&out){
 	for (QVector<Hex>::iterator it = m_Hexes.begin();it != m_Hexes.end(); it ++){
 		QPolygonF plg;
@@ -71,6 +73,11 @@ QPointF Hex::getPoint(int index){
 }
 
 BoardHex::BoardHex(void){
+
 }
 BoardHex::~BoardHex(void){
+}
+Hex::Hex(){
+	m_Terrain; // 地形	
+	m_Weather; // 天气
 }

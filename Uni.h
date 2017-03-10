@@ -12,3 +12,9 @@ public:
 		return index.m_Col == this->m_Col && index.m_Row == this->m_Row;
 	}
 };
+
+
+enum Oriental{
+	Vertical = 0,
+	Horizontal = 1,
+};

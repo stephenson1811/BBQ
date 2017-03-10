@@ -3,13 +3,11 @@
 #include <QPointF>
 #include <QPolygon>
 #include "Uni.h"
-
-enum Oriental{
-	Vertical = 0,
-	Horizontal = 1,
-};
+#include "Pieces.h"
+#include "HexAttr.h"
 class Hex{
 public:
+	Hex();
 	void init(const Oriental,int r, int c);
 	QPointF getPoint(int index);
 	int getRow(){return m_Index.getRow();}
@@ -24,8 +22,9 @@ private:
 	QPointF m_Central;
 	HexIndex m_Index;
 	int m_Radius; // 六角网格中点到顶点的距离
-
 	Oriental m_Oriental; // 方向
+	Terrain m_Terrain; // 地形
+	Weather m_Weather; // 天气
 };
 class BoardHex : public QObject
 {
@@ -40,6 +39,7 @@ public:
 	Oriental getOriental(){return m_Oriental;}
 	void init(int,int);
 	void getHexes(QVector<QPolygonF>& );
+	void genMovePath(Piece&); // 根据算子属性和运动轨迹的起点终点生成路径
 public slots:
 	void onClickHex(HexIndex&);
 private:

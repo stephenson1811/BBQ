@@ -10,10 +10,9 @@ void PieceManage::findChildren(HexIndex& index,QVector<Piece*>& out){
 			out.push_back((*it));
 		}
 	}
-	out;
+	out.push_back(new Piece(QPixmap("ddf"),HexIndex()));
 }
-void PieceManage::onClickHex(HexIndex& hi){
-	QVector<Piece*> out;
+void PieceManage::onClickHex(HexIndex& hi,QVector<Piece*>&out){
 	findChildren(hi, out);
 }
 Piece::Piece(const QPixmap & p, HexIndex&)

@@ -25,9 +25,7 @@ public:
 	void findChildren(HexIndex& ,QVector<Piece*>&);
 	void init();
 public slots:
-	void onClickHex(HexIndex&);
-	void onMoveHex(HexIndex& dst);
+	void onClickHex(HexIndex&,QVector<Piece*>&);
 private:
 	QVector<Piece*> m_Pieces;
-	HexIndex m_HexIndex;
 };

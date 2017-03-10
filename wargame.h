@@ -9,7 +9,7 @@ class WarGame : public QMainWindow
 	Q_OBJECT
 
 public:
-	WarGame(QWidget *parent = 0, Qt::WFlags flags = 0);
+	WarGame(QGraphicsScene*,QWidget *parent = 0, Qt::WFlags flags = 0);
 	~WarGame();
 
 private:
