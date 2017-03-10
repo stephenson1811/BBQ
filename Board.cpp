@@ -3,39 +3,39 @@
 #include <QPainter>
 #include <QPalette>
 Board::Board(QGraphicsScene *scene, QWidget*p,Qt::WindowFlags f) : QGraphicsView(scene,p){
-	createGUI();
+    createGUI();
     setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);
 }
 Board::~Board(void){
 }
 void Board::createGUI(){
-	init();
-	connect(this,SIGNAL( clickHex(HexIndex&,QVector<Piece*>&)),&m_PieceManage,SLOT( onClickHex(HexIndex&,QVector<Piece*>&)));
+    init();
+    connect(this,SIGNAL( clickHex(HexIndex&,QVector<Piece*>&)),&m_PieceManage,SLOT( onClickHex(HexIndex&,QVector<Piece*>&)));
 }
 void Board::init (){
-	// 生成地图
-	m_BoardHex.init(10,12); // 六角网格
-	QVector <QPolygonF> out ;
-	m_BoardHex.getHexes(out);
-	for (QVector <QPolygonF>::Iterator it = out.begin(); it != out.end(); it ++){
-		m_HexPath.addPolygon((*it));
-		m_HexPath.closeSubpath();
-	}
-	// 生成算子
-	m_PieceManage.init();
+    // 鐢熸垚鍦板浘
+    m_BoardHex.init(10,12); // 鍏缃戞牸
+    QVector <QPolygonF> out ;
+    m_BoardHex.getHexes(out);
+    for (QVector <QPolygonF>::Iterator it = out.begin(); it != out.end(); it ++){
+        m_HexPath.addPolygon((*it));
+        m_HexPath.closeSubpath();
+    }
+    // 鐢熸垚绠楀瓙
+    m_PieceManage.init();
 }
 void Board::mouseMoveEvent ( QMouseEvent *  me){
-	m_HexIndex;
+    m_HexIndex;
 }
 void Board::mouseReleaseEvent ( QMouseEvent *  me){}
 void Board::mousePressEvent ( QMouseEvent *  me){
-	QVector<Piece*> out;
-	emit clickHex(HexIndex(1,2),out);
-	out.push_back(0);
+    QVector<Piece*> out;
+    //emit clickHex(HexIndex(1,2),out);
+    out.push_back(0);
 }
 void Board::paintEvent(QPaintEvent * pe){
-	QPainter p(this);
-	//QWidget::paintEvent(pe);
-	p.drawPath(m_HexPath);
+    QPainter p(this);
+    //QWidget::paintEvent(pe);
+    p.drawPath(m_HexPath);
 }

@@ -7,48 +7,48 @@
 #include "HexAttr.h"
 class Hex{
 public:
-	Hex();
-	void init(const Oriental,int r, int c);
-	QPointF getPoint(int index);
-	int getRow(){return m_Index.getRow();}
-	int getColumn(){return m_Index.getColumn();}
+    Hex();
+    void init(const Oriental,int r, int c);
+    QPointF getPoint(int index);
+    int getRow(){return m_Index.getRow();}
+    int getColumn(){return m_Index.getColumn();}
 private:
-	QPointF m_1;
-	QPointF m_2;
-	QPointF m_3;
-	QPointF m_4;
-	QPointF m_5;
-	QPointF m_6;
-	QPointF m_Central;
-	HexIndex m_Index;
-	int m_Radius; // Áù½ÇÍø¸ñÖĞµãµ½¶¥µãµÄ¾àÀë
-	Oriental m_Oriental; // ·½Ïò
-	Terrain m_Terrain; // µØĞÎ
-	Weather m_Weather; // ÌìÆø
+    QPointF m_1;
+    QPointF m_2;
+    QPointF m_3;
+    QPointF m_4;
+    QPointF m_5;
+    QPointF m_6;
+    QPointF m_Central;
+    HexIndex m_Index;
+    int m_Radius; // å…­è§’ç½‘æ ¼ä¸­ç‚¹åˆ°é¡¶ç‚¹çš„è·ç¦»
+    Oriental m_Oriental; // æ–¹å‘
+    Terrain m_Terrain; // åœ°å½¢
+    Weather m_Weather; // å¤©æ°”
 };
 class BoardHex : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	BoardHex(void);
-	~BoardHex(void);
+    BoardHex(void);
+    ~BoardHex(void);
 private:
 
 public:
-	void setOriental(Oriental o){m_Oriental = o;}
-	Oriental getOriental(){return m_Oriental;}
-	void init(int,int);
-	void getHexes(QVector<QPolygonF>& );
-	void genMovePath(Piece&); // ¸ù¾İËã×ÓÊôĞÔºÍÔË¶¯¹ì¼£µÄÆğµãÖÕµãÉú³ÉÂ·¾¶
+    void setOriental(Oriental o){m_Oriental = o;}
+    Oriental getOriental(){return m_Oriental;}
+    void init(int,int);
+    void getHexes(QVector<QPolygonF>& );
+    void genMovePath(Piece&); // æ ¹æ®ç®—å­å±æ€§å’Œè¿åŠ¨è½¨è¿¹çš„èµ·ç‚¹ç»ˆç‚¹ç”Ÿæˆè·¯å¾„
 public slots:
-	void onClickHex(HexIndex&);
+    void onClickHex(HexIndex&);
 private:
-	void show ();
+    void show ();
 private:
-	Oriental m_Oriental; // ·½Ïò
-	bool m_Show; // ÊÇ·ñÏÔÊ¾Íø¸ñ
-	QVector<Hex> m_Hexes;
-	QPointF m_Start;
-	QPointF m_End;
+    Oriental m_Oriental; // æ–¹å‘
+    bool m_Show; // æ˜¯å¦æ˜¾ç¤ºç½‘æ ¼
+    QVector<Hex> m_Hexes;
+    QPointF m_Start;
+    QPointF m_End;
 };
 

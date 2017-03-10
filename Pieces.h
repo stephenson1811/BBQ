@@ -5,27 +5,27 @@
 #include "Uni.h"
 class Piece : public QGraphicsPixmapItem{
 public:
-	Piece(const QPixmap & , HexIndex&);
-	~Piece(void);
-	HexIndex getHexIndex(){return m_Index;}
-	int getRow(){return m_Index.getRow();}
-	int getCol(){return m_Index.getColumn();}
+    Piece(const QPixmap & , const HexIndex&);
+    ~Piece(void);
+    HexIndex getHexIndex(){return m_Index;}
+    int getRow(){return m_Index.getRow();}
+    int getCol(){return m_Index.getColumn();}
 private:
-	HexIndex m_Index;
+    HexIndex m_Index;
 };
 class PiecePath{
 public:
 };
 class PieceManage : public QObject{
-	Q_OBJECT
+    Q_OBJECT
 public:
-	PieceManage();
-	~PieceManage();
+    PieceManage();
+    ~PieceManage();
 public:
-	void findChildren(HexIndex& ,QVector<Piece*>&);
-	void init();
+    void findChildren(HexIndex& ,QVector<Piece*>&);
+    void init();
 public slots:
-	void onClickHex(HexIndex&,QVector<Piece*>&);
+    void onClickHex(HexIndex&,QVector<Piece*>&);
 private:
-	QVector<Piece*> m_Pieces;
+    QVector<Piece*> m_Pieces;
 };

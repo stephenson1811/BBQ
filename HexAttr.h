@@ -1,16 +1,16 @@
 #pragma once
 class Terrain{
 public:
-	Terrain(void);
-	~Terrain(void);
-	int getBarrier(int UnitType);
+    Terrain(void);
+    ~Terrain(void);
+    int getBarrier(int UnitType);
 protected:
-	int m_Type;
+    int m_Type;
 };
 class Weather{
 public:
-	Weather();
-	~Weather();
+    Weather();
+    ~Weather();
 private:
-	int m_Type;
+    int m_Type;
 };

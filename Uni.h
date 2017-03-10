@@ -4,8 +4,8 @@ class HexIndex{
 public:
 	HexIndex(){m_Row = 0;m_Col = 0;}
 	HexIndex(int r, int c){m_Row = r;m_Col = c;}
-	int m_Row; // ĞĞ±àºÅ
-	int m_Col; // ÁĞ±àºÅ
+	int m_Row; // è¡Œç¼–å·
+	int m_Col; // åˆ—ç¼–å·
 	int getRow(){return m_Row;}
 	int getColumn(){return m_Col;}
 	bool operator == (HexIndex& index){
