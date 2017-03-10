@@ -1,7 +1,9 @@
 #pragma once
-#include <QVector>
+
 #include <QPointF>
 #include <QPolygon>
+#include "Uni.h"
+
 enum Oriental{
 	Vertical = 0,
 	Horizontal = 1,
@@ -10,8 +12,8 @@ class Hex{
 public:
 	void init(const Oriental,int r, int c);
 	QPointF getPoint(int index);
-	int getRow(){return m_Row;}
-	int getColumn(){return m_Col;}
+	int getRow(){return m_Index.getRow();}
+	int getColumn(){return m_Index.getColumn();}
 private:
 	QPointF m_1;
 	QPointF m_2;
@@ -20,9 +22,9 @@ private:
 	QPointF m_5;
 	QPointF m_6;
 	QPointF m_Central;
+	HexIndex m_Index;
 	int m_Radius; // 六角网格中点到顶点的距离
-	int m_Row; // 行编号
-	int m_Col; // 列编号
+
 	Oriental m_Oriental; // 方向
 };
 class BoardHex
