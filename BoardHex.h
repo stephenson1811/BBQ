@@ -1,5 +1,5 @@
 #pragma once
-
+#include <QObject>
 #include <QPointF>
 #include <QPolygon>
 #include "Uni.h"
@@ -27,8 +27,9 @@ private:
 
 	Oriental m_Oriental; // ·½Ïò
 };
-class BoardHex
+class BoardHex : public QObject
 {
+	Q_OBJECT
 public:
 	BoardHex(void);
 	~BoardHex(void);
@@ -39,6 +40,8 @@ public:
 	Oriental getOriental(){return m_Oriental;}
 	void init(int,int);
 	void getHexes(QVector<QPolygonF>& );
+public slots:
+	void onClickHex(HexIndex&);
 private:
 	void show ();
 private:

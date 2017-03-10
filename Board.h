@@ -7,6 +7,7 @@
 #include <QPolygon>
 #include <QPainterPath>
 class Board : public QWidget{
+	Q_OBJECT
 public:
 	Board(QWidget* p = 0);
 	~Board(void);
@@ -18,6 +19,7 @@ protected:
 	void mousePressEvent ( QMouseEvent *  ) ;
 private:
 	void init ();
+	void createGUI();
 signals:
 	void clickHex(HexIndex&);
 public slots:

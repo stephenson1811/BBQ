@@ -4,11 +4,15 @@
 #include <QPalette>
 Board::Board(QWidget* p):QWidget(p)
 {
-	init();
+	createGUI();
     setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);
 }
 Board::~Board(void){
+}
+void Board::createGUI(){
+	init();
+	connect(this,SIGNAL(void clickHex(HexIndex&)),&m_PieceManage,SLOT(void onClickHex(HexIndex&)));
 }
 void Board::init (){
 	// Éú³ÉµØÍ¼

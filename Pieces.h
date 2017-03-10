@@ -13,6 +13,9 @@ public:
 private:
 	HexIndex m_Index;
 };
+class PiecePath{
+public:
+};
 class PieceManage : public QObject{
 	Q_OBJECT
 public:
@@ -21,6 +24,10 @@ public:
 public:
 	void findChildren(HexIndex& ,QVector<Piece*>&);
 	void init();
+public slots:
+	void onClickHex(HexIndex&);
+	void onMoveHex(HexIndex& dst);
 private:
 	QVector<Piece*> m_Pieces;
+	HexIndex m_HexIndex;
 };
