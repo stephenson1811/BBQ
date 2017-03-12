@@ -4,6 +4,8 @@
 #include <QPalette>
 Board::Board(QGraphicsScene *scene, QWidget*p,Qt::WindowFlags f) : QGraphicsView(scene,p){
     createGUI();
+    viewport()->setAttribute(Qt::WA_AcceptTouchEvents);
+    setDragMode(ScrollHandDrag);
     setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);
 }
@@ -15,7 +17,7 @@ void Board::createGUI(){
 }
 void Board::init (){
     // 生成地图
-    m_BoardHex.init(10,12); // 六角网格
+    m_BoardHex.init(100,120); // 六角网格
     QVector <QPolygonF> out ;
     m_BoardHex.getHexes(out);
     for (QVector <QPolygonF>::Iterator it = out.begin(); it != out.end(); it ++){
@@ -35,7 +37,10 @@ void Board::mousePressEvent ( QMouseEvent *  me){
     out.push_back(0);
 }
 void Board::paintEvent(QPaintEvent * pe){
-    QPainter p(this);
+    QGraphicsView::paintEvent(pe);
+    QPainter p(this->viewport());
     //QWidget::paintEvent(pe);
     p.drawPath(m_HexPath);
+
+    this->viewport()->update();
 }
