@@ -2,45 +2,55 @@
 
 #include <QPainter>
 #include <QPalette>
-Board::Board(QGraphicsScene *scene, QWidget*p,Qt::WindowFlags f) : QGraphicsView(scene,p){
+BoardView::BoardView(QGraphicsScene *scene, QWidget*p,Qt::WindowFlags ) : QGraphicsView(scene,p){
     createGUI();
     viewport()->setAttribute(Qt::WA_AcceptTouchEvents);
     setDragMode(ScrollHandDrag);
     setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);
 }
-Board::~Board(void){
+BoardView::~BoardView(void){
 }
-void Board::createGUI(){
+void BoardView::createGUI(){
     init();
-    connect(this,SIGNAL( clickHex(HexIndex&,QVector<Piece*>&)),&m_PieceManage,SLOT( onClickHex(HexIndex&,QVector<Piece*>&)));
 }
-void Board::init (){
+void BoardView::init (){
     // 生成地图
-    m_BoardHex.init(100,120); // 六角网格
+    m_BoardHex.init(100,220); // 六角网格
     QVector <QPolygonF> out ;
     m_BoardHex.getHexes(out);
     for (QVector <QPolygonF>::Iterator it = out.begin(); it != out.end(); it ++){
         m_HexPath.addPolygon((*it));
         m_HexPath.closeSubpath();
     }
+    Piece* f = new Piece(QPixmap("E:/github/war/BBQ/assets/butterfly.png"),HexIndex());
+    Piece* e = new Piece(QPixmap("E:/github/war/BBQ/assets/qtlogo.png"),HexIndex());
+    this->scene()->addItem(f);
+    this->scene()->addItem(e);
+    m_ActivePath = new Path(QPainterPath(QPointF()));
     // 生成算子
-    m_PieceManage.init();
 }
-void Board::mouseMoveEvent ( QMouseEvent *  me){
-    m_HexIndex;
+void BoardView::mouseMoveEvent ( QMouseEvent *  me){
+    //m_ActivePath->setPath();
+    Piece p(QPixmap(""),HexIndex());
+    m_BoardHex.genMovePath(p);
+    m_ActivePath;
 }
-void Board::mouseReleaseEvent ( QMouseEvent *  me){}
-void Board::mousePressEvent ( QMouseEvent *  me){
-    QVector<Piece*> out;
-    //emit clickHex(HexIndex(1,2),out);
-    out.push_back(0);
+void BoardView::mouseReleaseEvent ( QMouseEvent *  me){
+    return ;
 }
-void Board::paintEvent(QPaintEvent * pe){
+void BoardView::mousePressEvent ( QMouseEvent *  me){
+    HexIndex hi = m_BoardHex.pos2Idx(QPointF(me->pos()));
+    m_Start = hi;
+}
+void BoardView::paintEvent(QPaintEvent * pe){
     QGraphicsView::paintEvent(pe);
     QPainter p(this->viewport());
     //QWidget::paintEvent(pe);
-    p.drawPath(m_HexPath);
+    //p.drawPath(m_HexPath);
 
     this->viewport()->update();
+}
+BoardScene::BoardScene(qreal x, qreal y, qreal width, qreal height, QObject *parent)
+    :QGraphicsScene( x,  y,  width,  height, parent){
 }

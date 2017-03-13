@@ -3,14 +3,19 @@
 #include "HexAttr.h"
 #include "Pieces.h"
 #include <QGraphicsView>
+#include <QGraphicsScene>
 #include <QPaintEvent>
 #include <QPolygon>
 #include <QPainterPath>
-class Board : public QGraphicsView{
+class BoardScene :public QGraphicsScene{
+public:
+    BoardScene(qreal x, qreal y, qreal width, qreal height, QObject *parent = Q_NULLPTR);
+};
+class BoardView : public QGraphicsView{
     Q_OBJECT
 public:
-    Board(QGraphicsScene* ,QWidget*p = 0,Qt::WindowFlags f=0);
-    ~Board(void);
+    BoardView(QGraphicsScene* ,QWidget*p = 0,Qt::WindowFlags f=0);
+    ~BoardView(void);
 public:
     void movePiece();
 protected:
@@ -25,8 +30,10 @@ signals:
     void clickHex(HexIndex&,QVector<Piece*>&);
 public slots:
 private:
+    HexIndex m_Start;
+    Path* m_ActivePath;
+    BoardScene *m_Scene;
     BoardHex m_BoardHex; // 六角网格
-    PieceManage m_PieceManage;
     QPainterPath m_HexPath;
     HexIndex m_HexIndex;
 };

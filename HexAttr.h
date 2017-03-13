@@ -1,4 +1,5 @@
 #pragma once
+#include <QGraphicsItem>
 class Terrain{
 public:
     Terrain(void);

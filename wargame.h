@@ -15,9 +15,9 @@ public:
 
 private:
     Ui::WarGameClass ui;
-    Board *m_Board;
+    BoardScene *m_Scene;
+    BoardView *m_Board;
     QWidget* m_Right;
-    QGraphicsScene* m_Scene;
 };
 
 #endif // WARGAME_H

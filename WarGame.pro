@@ -20,3 +20,6 @@ SOURCES += \
 
 FORMS += \
     wargame.ui
+
+DISTFILES += \
+    assets/butterfly.png
