@@ -32,8 +32,9 @@ void BoardView::init (){
 }
 void BoardView::mouseMoveEvent ( QMouseEvent *  me){
     //m_ActivePath->setPath();
+    HexIndex end = m_BoardHex.pos2Idx(QPointF(me->pos()));
     Piece p(QPixmap(""),HexIndex());
-    m_BoardHex.genMovePath(p);
+    m_BoardHex.genMovePath(p,m_Start,end);
     m_ActivePath;
 }
 void BoardView::mouseReleaseEvent ( QMouseEvent *  me){

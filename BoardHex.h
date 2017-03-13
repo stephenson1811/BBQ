@@ -8,6 +8,7 @@
 class Hex{
 public:
     Hex();
+    Hex(int,int);
     Hex(HexIndex&);
     Hex(Terrain&,Weather&);
     void init(int r, int c);
@@ -54,18 +55,18 @@ public:
     QPointF idx2Pos(const HexIndex&);
     void init(int,int);
     void getHexes(QVector<QPolygonF>& );
-    void genMovePath(Piece&); // 根据算子属性和运动轨迹的起点终点生成路径
+    void genMovePath(Piece&,HexIndex&src, HexIndex&dst); // 根据算子属性和运动轨迹的起点终点生成路径
 public slots:
     void onClickHex(HexIndex&);
 private:
+    void shortestPath();
     void show ();
-    void calcPath(HexIndex&src, HexIndex&dst);
+    void calcPath();
     void getNeighbourNodes(HexIndex&,QVector<HexIndex>&);
     Hex& getHex(HexIndex&) ;
 private:
     bool m_Show; // 是否显示网格
     QVector<Hex> m_Hexes;
-    QPointF m_Start;
-    QPointF m_End;
+    HexIndex m_Start,m_End;
 };
 

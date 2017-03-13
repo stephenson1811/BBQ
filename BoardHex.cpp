@@ -8,6 +8,10 @@ Hex::Hex(){
     m_Terrain; // 地形
     m_Weather; // 天气
 }
+Hex::Hex(int r,int c){
+    m_Index.m_Col = c;
+    m_Index.m_Row = r;
+}
 Hex::Hex(HexIndex&){}
 Hex::Hex(Terrain&,Weather&){
     m_Terrain; // 地形
@@ -72,7 +76,6 @@ QPointF Hex::getPoint(int index)const{
     }
 }
 void BoardHex::show(){
-    m_Start.x();
 }
 HexIndex BoardHex::pos2Idx(const QPointF& point){
     for (QVector<Hex>::Iterator it = m_Hexes.begin(); it != m_Hexes.end();it ++){
@@ -93,23 +96,26 @@ QPointF BoardHex::idx2Pos(const HexIndex& index){
 void BoardHex::init(int row ,int col){
     for (int r = 0; r < row ; r ++){
         for (int c = 0; c < col ; c++){
-            Hex h;
+            Hex h(r,c);
             h.init(r,c);
             m_Hexes.push_back(h);
         }
     }
 }
-void BoardHex::calcPath(HexIndex&src, HexIndex&dst){
-    src;
-    dst;
-    QPainterPath p;
-    src;
+void BoardHex::shortestPath(){
+    QVector<HexIndex> out;
+    getNeighbourNodes(m_Start, out);
+}
+void BoardHex::calcPath(){
+    shortestPath();
 }
 void BoardHex::onClickHex(HexIndex& index){
     index;
 }
-void BoardHex::genMovePath(Piece& p){
-    p;
+void BoardHex::genMovePath(Piece& p,HexIndex&src, HexIndex&dst){
+    m_Start = src;
+    m_End = dst;
+    calcPath();
 }
 void BoardHex::getNeighbourNodes(HexIndex&hi,QVector<HexIndex>&out){
     Hex h;
