@@ -12,7 +12,8 @@ class WarGame : public QMainWindow
 public:
     WarGame(QWidget *parent = 0, Qt::WindowFlags flags = 0);
     ~WarGame();
-
+public slots:
+    void onP(QString&s);
 private:
     Ui::WarGameClass ui;
     BoardScene *m_Scene;

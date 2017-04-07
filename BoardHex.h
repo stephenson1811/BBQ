@@ -2,6 +2,7 @@
 #include <QObject>
 #include <QPointF>
 #include <QPolygon>
+#include <complex>
 #include "Uni.h"
 #include "Pieces.h"
 #include "HexAttr.h"
@@ -13,8 +14,9 @@ public:
     Hex(Terrain&,Weather&);
     void init(int r, int c);
     QPointF getPoint (int index)const;
-    int getRow(){return m_Index.getRow();}
-    int getColumn()const{return m_Index.getColumn();}
+    int getXsai(){return m_Index.getXsai();}
+    int getYupsilon()const{return m_Index.getYupsilon();}
+    int getZeta(){return m_Index.getZeta();}
     HexIndex getIndex()const {return m_Index;}
     bool operator == ( const HexIndex& hi){
         if (this->m_Index == hi){
@@ -43,6 +45,7 @@ private:
     Terrain m_Terrain; // 地形
     Weather m_Weather; // 天气
 };
+//  棋盘网格坐标
 class BoardHex : public QObject
 {
     Q_OBJECT
@@ -52,7 +55,13 @@ public:
 private:
 public:
     HexIndex pos2Idx(const QPointF&);
+    HexIndex pos2Idx(const QPoint&);
     QPointF idx2Pos(const HexIndex&);
+    int projX(const QPoint& point);
+    int projY(const QPoint& point);
+    int projZ(const QPoint& point);
+    int dotProduct(const QPoint& u,const QPoint& v);
+    int mod(const QPoint& point);
     void init(int,int);
     void getHexes(QVector<QPolygonF>& );
     void genMovePath(Piece&,HexIndex&src, HexIndex&dst); // 根据算子属性和运动轨迹的起点终点生成路径
@@ -65,6 +74,11 @@ private:
     void getNeighbourNodes(HexIndex&,QVector<HexIndex>&);
     Hex& getHex(HexIndex&) ;
 private:
+    int m_Xsai;
+    int m_Yupsilon;
+    int m_Zeta;
+    QPoint m_Original;
+    int m_Radius;
     bool m_Show; // 是否显示网格
     QVector<Hex> m_Hexes;
     HexIndex m_Start,m_End;

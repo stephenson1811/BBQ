@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="WarGame">
+    <qresource prefix="/WarGame">
+        <file>assets/map1.jpg</file>
     </qresource>
 </RCC>

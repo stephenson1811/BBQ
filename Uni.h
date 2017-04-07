@@ -2,18 +2,22 @@
 #include <QVector>
 class HexIndex{
 public:
-	HexIndex(){m_Row = 0;m_Col = 0;}
-	HexIndex(int r, int c){m_Row = r;m_Col = c;}
-	int m_Row; // 行编号
-	int m_Col; // 列编号
-	int getRow(){return m_Row;}
-    int getColumn()const{return m_Col;}
+    HexIndex(){m_Xsai = 0;m_Yupsilon = 0;m_Zeta = 0;}
+    HexIndex(int x, int y, int z){m_Xsai = x;m_Yupsilon = y;m_Zeta = z;}
+    int m_Xsai; // xsai编号
+    int m_Yupsilon; // yupsilon编号
+    int m_Zeta;  // zeta 编号
+    int getXsai(){return m_Xsai;}
+    int getYupsilon()const{return m_Yupsilon;}
+    int getZeta()const{return m_Zeta;}
     bool operator == ( const HexIndex& index){
-        return index.m_Col == this->m_Col && index.m_Row == this->m_Row;
+        return index.m_Zeta == this->m_Zeta && index.m_Yupsilon == this->m_Yupsilon &&
+                index.m_Xsai == this->m_Xsai;
 	}
     void operator = (const HexIndex& index){
-        this->m_Col = index.m_Col;
-        this->m_Row = index.m_Row;
+        this->m_Xsai = index.m_Xsai;
+        this->m_Yupsilon = index.m_Yupsilon;
+        this->m_Zeta = index.m_Zeta;
     }
 };
 

@@ -9,8 +9,8 @@ Hex::Hex(){
     m_Weather; // 天气
 }
 Hex::Hex(int r,int c){
-    m_Index.m_Col = c;
-    m_Index.m_Row = r;
+    m_Index.m_Zeta = c;
+    m_Index.m_Yupsilon = r;
 }
 Hex::Hex(HexIndex&){}
 Hex::Hex(Terrain&,Weather&){
@@ -77,13 +77,72 @@ QPointF Hex::getPoint(int index)const{
 }
 void BoardHex::show(){
 }
-HexIndex BoardHex::pos2Idx(const QPointF& point){
-    for (QVector<Hex>::Iterator it = m_Hexes.begin(); it != m_Hexes.end();it ++){
-        if ((*it).inHex(point)){
-            return (*it).getIndex();
+int BoardHex::projX(const QPoint& point){
+    int r = 78;
+    QPoint xsai(0,0);
+    double delta = point.y()/point.x();
+    bool negative = false;
+    if (point.x()<0){
+        if(delta > 0.5){
+            negative = true;
         }
     }
-    return HexIndex();
+    xsai = negative?QPoint(-1000,500):QPoint(1000,-500);
+    int m = QPoint::dotProduct(point,xsai)/mod(xsai);
+    if ( m > r){
+        return ((m-r)/(2*r)+1)*negative?1:(-1);
+    }
+    return 0;
+}
+int BoardHex::projY(const QPoint& point){
+    QPoint yupsilon(0,0);
+    double delta = point.y()/point.x();
+    bool negative = false;
+    if (point.y() < 0){
+        if(delta > 0.5 || delta < -0.5){
+            negative = true;
+        }
+    }
+    yupsilon = negative?QPoint(0,-1000):QPoint(0,1000);
+    int r = 78;
+    int m = QPoint::dotProduct(point,yupsilon)/mod(yupsilon);
+    if ( m > r){
+        return ((m-r)/(2*r)+1)*negative?1:(-1);
+    }
+    return 0;
+}
+int BoardHex::projZ(const QPoint& point){
+    QPoint zeta(0,0);
+    int r = 78;
+    double delta = point.y()/point.x();
+    bool negative = false;
+    if (point.x() > 0){}
+    if( delta > -0.5){
+        negative = true;
+    }
+    zeta = negative?QPoint(1000,500):QPoint(-1000,-500);
+    int m = QPoint::dotProduct(point,zeta)/mod(zeta);
+    if ( m > r){
+        return (m-r)/(2*r)+1;
+    }
+    return 0;
+}
+int BoardHex::dotProduct(const QPoint& u,const QPoint& v){
+    return u.x()*v.x()+u.y()*v.y();
+}
+int BoardHex::mod(const QPoint& point){
+    return (int)sqrt(pow((double)point.x(),2.0)+pow((double)point.y(),2.0));
+}
+HexIndex BoardHex::pos2Idx(const QPointF& point){
+    QPoint p( point.x(), point.y());
+    return pos2Idx(p);
+}
+HexIndex BoardHex::pos2Idx(const QPoint& point){
+    QPoint p = point - m_Original;
+    int xsai = projX(p);
+    int yupsilon = projY(p);
+    int zeta = projZ(p);
+    return HexIndex(xsai,yupsilon,zeta);
 }
 QPointF BoardHex::idx2Pos(const HexIndex& index){
     for (QVector<Hex>::Iterator it = m_Hexes.begin(); it != m_Hexes.end();it ++){
@@ -101,6 +160,8 @@ void BoardHex::init(int row ,int col){
             m_Hexes.push_back(h);
         }
     }
+    m_Original.setX(4200);
+    m_Original.setY(2857);
 }
 void BoardHex::shortestPath(){
     QVector<HexIndex> out;
@@ -142,7 +203,8 @@ Hex& BoardHex::getHex(HexIndex& hi) {
    Hex h;
    QVector<Hex>::Iterator it = qFind (m_Hexes.begin(), m_Hexes.end(), hi);
    if (it != m_Hexes.end()){
-       qDebug()<<"getHex,true,r="<<(*it).getIndex().getRow()<<",c="<<(*it).getIndex().getColumn();
+       qDebug()<<"getHex,true,xsai="<<(*it).getIndex().getXsai()<<",yups="<<(*it).getIndex().getYupsilon()
+              <<",zeta="<<(*it).getIndex().getZeta();
        return (*it);
    }else{
        qDebug()<<"getHex,false";
