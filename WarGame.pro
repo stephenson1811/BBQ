@@ -7,7 +7,8 @@ HEADERS += \
     HexAttr.h \
     Pieces.h \
     Uni.h \
-    wargame.h
+    wargame.h \
+    Minimap.h
 
 SOURCES += \
     Board.cpp \
@@ -16,7 +17,8 @@ SOURCES += \
     Pieces.cpp \
     Terrain.cpp \
     wargame.cpp \
-    Weather.cpp
+    Weather.cpp \
+    Minimap.cpp
 
 FORMS += \
     wargame.ui
