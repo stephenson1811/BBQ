@@ -3,20 +3,16 @@
 #include <QGridLayout>
 #include <QBitmap>
 #include <QImage>
+#include <QSplitter>
 WarGame::WarGame(QWidget *parent, Qt::WindowFlags flags)
     : QMainWindow(parent, flags)
 {
     ui.setupUi(this);
+    createView();
     createStatusBar();
     createActions();
-    createDockWindows();
-
-    m_Scene = new BoardScene(0, 0, 8268, 5730);
-    m_MiniMap = new MiniMap(m_Scene);
-    m_Board = new BoardView(m_Scene);
-    m_Board->setRenderHint(QPainter::Antialiasing);
-    QImage o("F:/github/WarGame/BBQ/assets/map1.jpg");//
-    m_Board->setBackgroundBrush(o);
+    //createDockWindows();
+#if 0
     //"E:/vs08proj/0.81/client/Data/data/ADOPFLGG.bmp"
     //ui.verticalLayout->setMargin(1);
     //ui.verticalLayout->addWidget(m_Board);
@@ -29,6 +25,27 @@ WarGame::WarGame(QWidget *parent, Qt::WindowFlags flags)
 
     setCentralWidget(m_Board);
     connect(m_Board,SIGNAL(p( QString&)),this,SLOT(onP( QString&)));
+#endif
+}
+void WarGame::createView(){
+    m_Scene = new BoardScene(0, 0, 8268, 5730);
+    m_MiniMap = new MiniMap(m_Scene);
+    m_MiniMap->setScene(m_Scene);
+    m_Board = new BoardView(m_Scene);
+    m_Board->setRenderHint(QPainter::Antialiasing);
+    QImage o("F:/github/WarGame/BBQ/assets/map1.jpg");//
+    m_Board->setBackgroundBrush(o);
+    //
+    QSplitter* hsplit = new QSplitter(this);
+    QSplitter* vsplit = new QSplitter(Qt::Vertical,this);
+    QWidget*w1 = new QWidget(this);
+    QWidget*w2 = new QWidget(this);
+    QWidget*w3 = new QWidget(this);
+    vsplit->addWidget(w1);
+    vsplit->addWidget(w2);
+    vsplit->addWidget(w3);
+    hsplit->addWidget(m_Scene);
+    hsplit->addWidget(vsplit);
 }
 void WarGame::createStatusBar(){
     statusBar()->showMessage(tr("部队信息"));

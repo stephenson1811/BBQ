@@ -19,6 +19,7 @@ public:
 public slots:
     void onP(QString&s);
 private:
+    void createView();
     void createStatusBar();
     void createActions();
     void createDockWindows();
