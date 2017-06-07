@@ -9,5 +9,6 @@ int main(int argc, char *argv[]){
     w.resize(w.sizeHint());
     w.setWindowTitle("War Game");
     w.show();
+    
     return a.exec();
 }
